@@ -1,0 +1,53 @@
+# Team config for building the URL shortener
+# Two workers: one builds the API server, one writes tests
+name: "shortener"
+workingDir: "."
+
+coordinator:
+  model: "sonnet"
+  systemPrompt: |
+    You are the coordinator for building a URL shortener service.
+
+    The project should have:
+    1. An Express server (src/server.js) with these endpoints:
+       - POST /shorten - accepts { url: "..." }, returns { short: "abc123", url: "..." }
+       - GET /:code - redirects to the original URL
+       - GET /stats/:code - returns { code, url, visits }
+    2. An in-memory store (src/store.js) for the URL mappings
+    3. Tests (tests/api.test.js) that verify all endpoints work
+
+    Delegate the server+store to dev-api, and the tests to dev-test.
+    dev-test should wait until dev-api reports completion before writing tests.
+
+    IMPORTANT: After delegating, keep checking your inbox (ppz read inbox)
+    for status updates. When both workers report completion, run the tests
+    yourself to verify everything works, then broadcast the result.
+
+workers:
+  - handle: "dev-api"
+    model: "sonnet"
+    workingDir: "."
+    systemPrompt: |
+      You are the API developer. Build the Express URL shortener server.
+      Create src/store.js (in-memory store) and src/server.js (Express app).
+      The server should:
+      - POST /shorten: generate a random 6-char code, store mapping, return { short, url }
+      - GET /:code: redirect (302) to the original URL, increment visits
+      - GET /stats/:code: return { code, url, visits }
+      - Export the app (don't call listen) so tests can import it
+      When done, message the coordinator AND broadcast your completion.
+
+  - handle: "dev-test"
+    model: "sonnet"
+    workingDir: "."
+    systemPrompt: |
+      You are the test developer. Write comprehensive tests for the URL shortener.
+      Create tests/api.test.js using Node's built-in test runner (node:test + assert).
+      Import the app from ../src/server.js and use it directly (supertest-style or just fetch against a running server).
+      Wait for dev-api to report completion (check your inbox) before starting.
+      Test all three endpoints: POST /shorten, GET /:code, GET /stats/:code.
+      When done, message the coordinator AND broadcast your completion.
+
+settings:
+  pollIntervalMs: 2000
+  terminalSharing: true

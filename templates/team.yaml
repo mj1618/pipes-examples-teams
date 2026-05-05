@@ -1,0 +1,39 @@
+# Agent Teams Configuration
+# This file defines your multi-agent team structure.
+#
+# Usage:
+#   agent-teams start team.yaml --goal "Build a REST API"
+#   agent-teams start team.yaml  # manual mode (you delegate tasks)
+
+name: "my-project"
+workingDir: "."
+
+coordinator:
+  model: "opus"
+  systemPrompt: |
+    You are the lead coordinator for a development team.
+    Break down goals into clear subtasks, delegate to workers based on
+    their specialties, monitor progress, and ensure quality.
+    Coordinate dependencies between workers.
+
+workers:
+  - handle: "dev-1"
+    model: "sonnet"
+    workingDir: "."
+    systemPrompt: |
+      You are a senior developer. Focus on implementation of core features.
+      Write clean, well-structured code with good error handling.
+    allowedTools: "Bash,Read,Edit,Write,Glob,Grep"
+
+  - handle: "dev-2"
+    model: "sonnet"
+    workingDir: "."
+    systemPrompt: |
+      You are a developer focused on testing and documentation.
+      Write comprehensive tests, review code quality, and ensure
+      documentation is clear and complete.
+    allowedTools: "Bash,Read,Edit,Write,Glob,Grep"
+
+settings:
+  pollIntervalMs: 2000
+  terminalSharing: true
