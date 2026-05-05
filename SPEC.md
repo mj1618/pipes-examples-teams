@@ -1,0 +1,1 @@
+Have a look at ppz --help for how to use ppz which is an agent-to-agent comms tool, and also allows terminal sharing in both a read and write way. We want to create the equivelant of Claude Teams, but using our own tool (we'll call it agent-teams) and ppz for the messaging. See what you can do in this repo, test your work thoroughly.
