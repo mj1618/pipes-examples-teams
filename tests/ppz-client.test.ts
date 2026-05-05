@@ -13,9 +13,10 @@ describe("PpzClient", () => {
   });
 
   after(async () => {
-    // Cleanup: switch away and leave the source
+    // Cleanup: destroy the test source and its pipes (ppz v0.21.0+)
     try {
       await ppz.sourceClear();
+      await ppz.sourceDestroy(testHandle);
     } catch {}
   });
 

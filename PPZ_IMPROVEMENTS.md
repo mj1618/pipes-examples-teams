@@ -4,16 +4,13 @@ Feedback from building `agent-teams` — a multi-agent coordination tool on top 
 
 ---
 
-## 1. Source lifecycle: no way to reuse or destroy sources
+## ~~1. Source lifecycle: no way to reuse or destroy sources~~ ✅ RESOLVED in v0.21.0
 
-**Problem:** `ppz terminal share <handle>` creates a source, but if that handle was ever used before (even in a previous session that exited cleanly), you get `E_SOURCE_TAKEN`. There's no `ppz source destroy` or `ppz source release` command.
+**Status:** `ppz source destroy` was added in v0.21.0 with glob pattern support (e.g. `ppz source destroy "my-team-*"`). Auto-provisioned pipes (broadcast, inbox) can also be destroyed by name since v0.22.1.
 
-**Impact:** Every new run must generate unique handles (we append random suffixes like `dev-api-irk4`). This pollutes the namespace and makes handles unpredictable — other agents can't address a well-known handle like `dev-api` reliably.
+**Original problem:** `ppz terminal share <handle>` creates a source, but if that handle was ever used before (even in a previous session that exited cleanly), you get `E_SOURCE_TAKEN`. There's no `ppz source destroy` or `ppz source release` command.
 
-**Suggestion:**
-- Add `ppz source destroy <handle>` to release a handle for reuse
-- Or add `ppz terminal share <handle> --force` / `--reuse` to take over an existing source
-- Or make sources reclaimable after the terminal share process exits (garbage collection with TTL)
+**What we changed:** `stopTeam()` now destroys all worker and coordinator sources on cleanup. Tests properly clean up after themselves. The `stop --clean <pattern>` command allows manual glob-based cleanup of orphaned sources.
 
 ---
 
@@ -156,15 +153,15 @@ Feedback from building `agent-teams` — a multi-agent coordination tool on top 
 
 ## Summary: Priority ranking
 
-| Priority | Issue | Impact |
-|----------|-------|--------|
-| 🔴 High | #1 — No source destroy/reuse | Blocks clean multi-run workflows |
-| 🔴 High | #2 — terminal share vs source create conflict | Blocks pre-provisioning patterns |
-| 🟠 Medium | #7 — No sender metadata | Every app reinvents envelope format |
-| 🟠 Medium | #4 — No `--json` on `ppz ls` | Fragile programmatic integration |
-| 🟠 Medium | #5 — Silent send to non-existent target | Hard to debug delivery failures |
-| 🟡 Low | #3 — No source-only listing | Quality of life |
-| 🟡 Low | #6 — Cursor semantics unclear | Documentation gap |
-| 🟡 Low | #8 — Terminal read race condition | Workaround exists (sleep) |
-| 🟡 Low | #9 — No structured stdin | Inherent PTY limitation |
-| 🟡 Low | #10–13 — Conventions & polish | Nice-to-haves |
+| Priority | Issue | Impact | Status |
+|----------|-------|--------|--------|
+| ~~🔴 High~~ | ~~#1 — No source destroy/reuse~~ | ~~Blocks clean multi-run workflows~~ | ✅ Resolved in v0.21.0 |
+| 🔴 High | #2 — terminal share vs source create conflict | Blocks pre-provisioning patterns | Open |
+| 🟠 Medium | #7 — No sender metadata | Every app reinvents envelope format | Open |
+| 🟠 Medium | #4 — No `--json` on `ppz ls` | Fragile programmatic integration | Open |
+| 🟠 Medium | #5 — Silent send to non-existent target | Hard to debug delivery failures | Open |
+| 🟡 Low | #3 — No source-only listing | Quality of life | Open |
+| 🟡 Low | #6 — Cursor semantics unclear | Documentation gap | Open |
+| 🟡 Low | #8 — Terminal read race condition | Workaround exists (sleep) | Open |
+| 🟡 Low | #9 — No structured stdin | Inherent PTY limitation | Open |
+| 🟡 Low | #10–13 — Conventions & polish | Nice-to-haves | Open |

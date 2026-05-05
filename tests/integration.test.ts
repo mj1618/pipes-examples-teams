@@ -10,7 +10,12 @@ describe("Integration: multi-agent messaging", () => {
   const workerHandle = `integ-worker-${Date.now()}`;
 
   after(async () => {
-    try { await ppz.sourceClear(); } catch {}
+    // Cleanup: destroy test sources and their pipes (ppz v0.21.0+)
+    try {
+      await ppz.sourceClear();
+      await ppz.sourceDestroy(leadHandle);
+      await ppz.sourceDestroy(workerHandle);
+    } catch {}
   });
 
   it("should set up sources for lead and worker", async () => {

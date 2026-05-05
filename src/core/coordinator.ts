@@ -208,6 +208,7 @@ export async function sendChat(
 
 /**
  * Stop all team processes and clean up.
+ * Since ppz v0.21.0, we can destroy sources to release handles for reuse.
  */
 export async function stopTeam(session: SessionState): Promise<void> {
   console.log(chalk.yellow(`\n🛑 Stopping team "${session.teamName}"...\n`));
@@ -234,7 +235,17 @@ export async function stopTeam(session: SessionState): Promise<void> {
     }
   }
 
+  // Clean up ppz sources (available since ppz v0.21.0)
+  // Destroy worker sources
+  for (const worker of session.workers) {
+    await ppz.sourceDestroy(worker.handle);
+    console.log(chalk.gray(`  Destroyed source: ${worker.handle}`));
+  }
+  // Destroy coordinator source
+  await ppz.sourceDestroy(session.coordinatorHandle);
+  console.log(chalk.gray(`  Destroyed source: ${session.coordinatorHandle}`));
+
   // Clear session file
   await clearSession(session.workingDir);
-  console.log(chalk.green(`\n✅ Team "${session.teamName}" stopped.\n`));
+  console.log(chalk.green(`\n✅ Team "${session.teamName}" stopped and sources cleaned up.\n`));
 }

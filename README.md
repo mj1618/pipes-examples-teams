@@ -6,11 +6,13 @@ Think of it as your own Claude Teams: a lead agent plans and delegates, worker a
 
 ## Prerequisites
 
-Install ppz from [pipescloud.io](https://pipescloud.io):
+Install ppz (v0.21.0+) from [pipescloud.io](https://pipescloud.io):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/pipescloud/ppz/main/install.sh | bash
 ```
+
+> **Note:** Requires ppz v0.21.0 or later for source cleanup (`ppz source destroy`). The install script ships the CLI by default and will auto-upgrade an existing installation.
 
 ## Build It Yourself
 

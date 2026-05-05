@@ -15,9 +15,16 @@ export function registerStatusCommand(program: Command): void {
         return;
       }
 
+      // Show daemon version (ppz v0.19.0+)
+      const daemonVersion = await ppz.daemonVersion();
+
       console.log(chalk.blue(`\n📋 Team: "${session.teamName}"`));
       console.log(chalk.gray(`   Started: ${session.startedAt}`));
-      console.log(chalk.gray(`   Working dir: ${session.workingDir}\n`));
+      console.log(chalk.gray(`   Working dir: ${session.workingDir}`));
+      if (daemonVersion) {
+        console.log(chalk.gray(`   ppz daemon: v${daemonVersion}`));
+      }
+      console.log("");
 
       // Coordinator status
       const coordAlive = session.coordinatorPid

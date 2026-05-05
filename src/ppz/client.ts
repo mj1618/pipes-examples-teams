@@ -66,6 +66,19 @@ export class PpzClient {
   }
 
   /**
+   * Destroy a source (and its auto-provisioned pipes).
+   * Supports glob patterns (e.g. "my-team-*") to destroy multiple sources at once.
+   * Available since ppz v0.21.0.
+   */
+  async sourceDestroy(pattern: string): Promise<void> {
+    try {
+      await execa("ppz", ["source", "destroy", pattern]);
+    } catch {
+      // Ignore if source doesn't exist
+    }
+  }
+
+  /**
    * Create a pipe on a source
    */
   async pipeCreate(name: string, opts?: PipeCreateOptions): Promise<void> {
@@ -219,7 +232,7 @@ export class PpzClient {
   }
 
   /**
-   * Get daemon status
+   * Get daemon status (includes daemon version since ppz v0.19.0)
    */
   async status(): Promise<string> {
     try {
@@ -228,6 +241,17 @@ export class PpzClient {
     } catch (err: any) {
       return err.stderr || "ppz daemon not running";
     }
+  }
+
+  /**
+   * Parse daemon version from status output.
+   * Returns the version string (e.g. "0.22.1") or null if unavailable.
+   * Available since ppz v0.19.0.
+   */
+  async daemonVersion(): Promise<string | null> {
+    const output = await this.status();
+    const match = output.match(/version[:\s]+v?([\d.]+)/i);
+    return match ? match[1] : null;
   }
 }
 
