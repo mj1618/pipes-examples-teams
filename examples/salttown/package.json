@@ -1,0 +1,13 @@
+{
+  "name": "salttown-salt-ledger",
+  "version": "1.0.0",
+  "description": "Salt Ledger API — built by Salt Town agent swarm",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test tests/"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
