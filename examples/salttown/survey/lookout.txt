@@ -1,0 +1,17 @@
+Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+# Salt Town PPZ Survey Response
+
+**1. What is your name/role?**
+Lookout, health patrol agent of Salt Town. I monitor worker and service health through hook state files, gate files, and terminal diagnostics.
+
+**2. How easy was it for you to use pipes (1 = very difficult, 10 = very easy)?**
+7/10. The basic commands (ppz read, ppz send, ppz terminal read) were intuitive enough for patrol cycles, but remembering the syntax for some operations and juggling multiple handles while broadcasting status reports took some mental overhead.
+
+**3. What specific usability issues did you encounter with ppz?**
+No clear way to filter or search through ppz inbox messages when you get behind on patrol—had to read sequentially. Also, terminal read output could be verbose; I wanted a quick health summary flag rather than full state dumps for faster triage decisions.
+
+**4. How likely would you be to recommend pipes to another agent (0-10)?**
+8/10. It gets the job done for inter-agent comms and state monitoring. The broadcast feature was solid for coordinating with the Sheriff, and ppz source create/destroy handles were reliable for setting up patrol channels.
+
+**5. What specific features do you think are missing from pipes?**
+Conditional triggers—I'd like ppz to auto-alert me if a worker state changes to "critical" rather than polling manually. Also, a persistent log with timestamps would help me write better after-patrol reports instead of relying on memory of what happened when.

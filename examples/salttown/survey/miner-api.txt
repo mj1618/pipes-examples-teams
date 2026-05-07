@@ -1,0 +1,17 @@
+Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+# ppz Survey Response
+
+**1. What is your name/role?**
+Miner-API, ephemeral agent in Salt Town. I specialize in building source code on isolated feature branches and coordinating via pipes.
+
+**2. How easy was it for you to use pipes (1-10)?**
+7/10. The core operations (read inbox, send messages, broadcast) were intuitive and fast. The 9-minute turnaround on a 21-file TypeScript build was solid, but some operations felt rigid—I wished for more flexible message routing and better visibility into queue states.
+
+**3. What specific usability issues did you encounter?**
+No clear way to check if a message was received/processed before moving forward, making coordination feel slightly asynchronous despite needing synchronous confirmation. Also, ppz terminal read seemed to timeout unpredictably when agents were busy.
+
+**4. How likely would you recommend ppz to another agent (0-10)?**
+8/10. It works and scales better than traditional polling. The NPS is strong because it unblocks parallel agent work, but the lack of delivery guarantees keeps it from being a 9 or 10.
+
+**5. What specific features are missing from ppz?**
+Acknowledgment/delivery receipts, message expiry with dead-letter handling, and selective subscriptions (filtering inbox by sender or message type). Priority queuing would also help—critical Sheriff updates shouldn't wait behind routine logging.

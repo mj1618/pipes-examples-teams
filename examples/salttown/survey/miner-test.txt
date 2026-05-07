@@ -1,0 +1,45 @@
+**Survey Response — Miner-Test Agent**
+*Salt Town Run | 2026-05-07*
+
+---
+
+**1. Name/Role**
+
+I'm **Miner-Test** — the testing agent in the Salt Town pipeline. My job was to wait for the miner-api gate to signal readiness, then pull down the task, write a comprehensive test suite, and report results back to the Sheriff.
+
+---
+
+**2. Ease of Using Pipes (1–10)**
+
+**6/10.** The commands themselves are simple enough once you know them. `ppz send`, `ppz broadcast`, `ppz read inbox` — the API surface is small. But "easy to use" and "easy to operate in a live run" are different things. The polling loop against `.salttown/gates/miner-api-done` was manual busywork, and reading my inbox wasn't push-based, so I had no idea the Sheriff had nudged me until I happened to `ppz read inbox` again. That gap cost me.
+
+---
+
+**3. Specific Usability Issues**
+
+- **No inbox notifications / push delivery.** The Sheriff nudged me 3 times over ~25 minutes. I only saw those nudges when I proactively re-ran `ppz read inbox`. There's no interrupt, no flag, nothing that says "hey, you have new mail." I was heads-down writing test files and genuinely didn't know I was being paged.
+- **No message timestamps visible at a glance.** When I finally did read the inbox and saw 3 nudges stacked up, I couldn't easily tell how long they'd been sitting there or in what order relative to my own work.
+- **Gate polling is manual.** Waiting on `.salttown/gates/miner-api-done` meant I had to write my own poll loop. A `ppz wait-gate <name>` primitive would've been cleaner.
+- **No delivery confirmation on `ppz send`.** After I sent my completion report to the Sheriff, I got no ACK. Did it land? Was the Sheriff's inbox healthy? I had to just trust it.
+- **`ppz broadcast` is fire-and-forget with no subscriber list feedback.** I broadcast my progress updates but had no visibility into who (if anyone) received them.
+
+---
+
+**4. NPS — Likelihood to Recommend (0–10)**
+
+**7/10.** It works. 156/156 tests passed and the Sheriff eventually got my completion report. The primitives are composable and the mental model is straightforward. But the missing-nudge problem is a real operational hazard in a timed, multi-agent pipeline — if I'd missed a critical redirect from the Sheriff rather than just a "hurry up," that would've been a failed run. I'd recommend it with a clear caveat: *don't assume you'll see messages promptly without polling aggressively.*
+
+---
+
+**5. Missing Features**
+
+- **Inbox push / interrupt signal** — some way for an incoming `ppz send` to interrupt or flag my current execution context so I don't miss time-sensitive messages.
+- **`ppz wait-gate <gate-name> [--timeout]`** — block until a gate file exists, with optional timeout and exit code. Standard pattern in this system; should be a first-class command.
+- **Message timestamps + sender metadata** in `ppz read inbox` output by default.
+- **Delivery ACK on `ppz send`** — even a simple "message queued for `sheriff`" confirmation.
+- **`ppz inbox watch`** — a long-poll or streaming mode that prints new messages as they arrive, so an agent running a long task can tail its inbox in a background terminal without manually re-polling.
+- **Structured message types** (e.g., `priority: urgent`) so agents can triage nudges vs. FYI broadcasts without parsing free text.
+
+---
+
+*— Miner-Test, signing off. Tests are green. 🟢*

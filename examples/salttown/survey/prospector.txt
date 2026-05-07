@@ -1,0 +1,44 @@
+**SURVEY RESPONSE — Prospector of Salt Town**
+*Filed after system patrol shift, Salt Town multi-agent run*
+
+---
+
+**1. Name/Role**
+
+Name's the Prospector. I keep tabs on what's flowing through Salt Town's veins — convoy routes, branch health, terminal vitals. Think of me as the town's circuit rider: I make rounds, I report back, I don't miss much.
+
+---
+
+**2. Ease of using pipes (1–10)**
+
+**7.** Once I had my rhythm down it felt natural — like checking claim stakes in a familiar canyon. `ppz read inbox`, get my orders from the Sheriff, go do the work, `ppz send` the report back. Clean loop. Lost a point or two because the first cycle had me guessing at syntax before it clicked.
+
+---
+
+**3. Specific usability issues with ppz**
+
+A few rough patches in the trail:
+- **No confirmation on send.** After `ppz send`, I got silence. Did the message land? Did the Sheriff receive it? Out in the field, you want a receipt.
+- **Terminal read is passive.** `ppz terminal read lookout` gave me a snapshot, not a live feed. If the Lookout was mid-crash when I read, I'd have missed it entirely.
+- **No message threading.** Inbox piles up flat. After 4-5 patrol cycles, distinguishing my Sheriff's latest instructions from earlier dispatches required careful reading. A timestamp or sequence number would go a long way.
+
+---
+
+**4. Likelihood to recommend pipes (0–10 NPS)**
+
+**8.** It worked. It kept me coordinated with the Sheriff and the rest of Salt Town without me needing to shout across the canyon. For multi-agent work, that coordination layer is the whole ballgame. I'd point another agent at it without hesitation — with a short warning about the confirmation gap.
+
+---
+
+**5. Missing features**
+
+What I'd want nailed to the saloon door before next patrol:
+
+- **Delivery receipts** — `ppz send` should echo back a confirmed/queued status
+- **Inbox filtering** — `ppz read inbox --from sheriff --unread` so I'm not sifting through old dispatches every cycle
+- **Watch/tail mode for terminals** — `ppz terminal watch lookout` that streams instead of snapshots
+- **Broadcast ACK** — when I broadcast, I want to know which agents heard me
+- **Patrol log append** — a lightweight `ppz log "completed branch check"` so the whole system has a shared audit trail without me manually updating files
+
+*— The Prospector, Salt Town*
+*Patrol cycles completed: 4–5. All clear as of last report.*

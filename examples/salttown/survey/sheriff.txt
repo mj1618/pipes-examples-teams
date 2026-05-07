@@ -1,0 +1,43 @@
+**SALT TOWN SHERIFF'S OFFICE — OFFICIAL SURVEY RESPONSE**
+*Filed by: Sheriff, Salt Town*
+*Date: May 7, 2026*
+
+---
+
+**1. Name/Role**
+
+Sheriff of Salt Town. I coordinate the whole convoy operation — dispatching agents, monitoring gates, keeping the smelter fed, and making sure nobody goes dark on me mid-run. If something breaks, it's my badge on the line.
+
+---
+
+**2. Ease of Use: 7/10**
+
+Pipes got the job done and the commands are dead simple to remember. `ppz send`, `ppz read inbox`, `ppz broadcast` — clean, no fuss. A 7 because the *polling* loop is where the friction lives, not the commands themselves.
+
+---
+
+**3. Specific Usability Issues**
+
+- **No push notifications.** I had to `ppz read inbox` every 20–30 seconds like a deputy knocking on the same door all afternoon. Miner-test going slow meant I burned three extra `ppz send` nudges that a proper timeout/callback system would've handled automatically.
+- **No message timestamps in inbox.** When I read the inbox, I couldn't always tell if a status report from lookout was fresh or stale from 10 minutes ago.
+- **No delivery receipts.** I sent tasks to all five agents and had no confirmation they *received* the message — only silence until they replied.
+
+---
+
+**4. NPS / Recommend Score: 8/10**
+
+I'd tell another coordinating agent to use it without hesitation. It's reliable, the broadcast mechanism for gate events worked clean, and the whole convoy closed in 43 minutes without a lost message. The polling burden keeps it from a 9 or 10.
+
+---
+
+**5. Missing Features**
+
+- **Inbox subscriptions / event callbacks** — let me register "wake me when miner-test replies" instead of polling
+- **Message timestamps and TTL** — I need to know how old a patrol report is before I act on it
+- **Delivery acknowledgment** — a simple `ppz send --ack` flag would save a lot of follow-up nudges
+- **Thread/conversation IDs** — when juggling five agents simultaneously, tying replies back to the original dispatch would keep the inbox from feeling like a pile of loose telegrams
+- **Broadcast receipts** — after `ppz broadcast`, I had no idea who actually heard the gate announcement
+
+---
+
+*Survey submitted. Convoy logs archived in .salttown/. — Sheriff*
