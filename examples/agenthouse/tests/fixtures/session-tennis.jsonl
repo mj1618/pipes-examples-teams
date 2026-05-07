@@ -1,0 +1,63 @@
+{
+  "sessionId": "sess-tennis-001",
+  "userId": "alice",
+  "agentType": "claude-code",
+  "project": "/Users/alice/tennis-app",
+  "startedAt": "2026-05-01T10:00:00Z",
+  "endedAt": "2026-05-01T10:45:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What tension should I use for polyester tennis strings?",
+      "timestamp": "2026-05-01T10:05:00Z",
+      "toolCalls": []
+    },
+    {
+      "role": "assistant",
+      "content": "For polyester strings, I'd recommend starting in the 45-55 lbs range. Poly strings are stiffer than natural gut or multifilament, so you generally string them lower than you would other materials. Lower tension gives more power and comfort, while higher tension gives more control. Most pros using full poly string jobs play in the 40-55 lbs range. If you're a recreational player, 50-55 lbs is a good starting point.",
+      "timestamp": "2026-05-01T10:05:08Z",
+      "toolCalls": []
+    },
+    {
+      "role": "user",
+      "content": "What gauge should I use? I see 16g and 17g options.",
+      "timestamp": "2026-05-01T10:10:00Z",
+      "toolCalls": []
+    },
+    {
+      "role": "assistant",
+      "content": "16g (1.30mm) and 17g (1.25mm) are the most common gauges for polyester strings. Thinner strings (higher gauge numbers) give you more spin and feel but break faster. Thicker strings (lower gauge) are more durable. For a recreational player who hits with some topspin, 17g is a great all-around choice. If you're breaking strings frequently, step up to 16g.",
+      "timestamp": "2026-05-01T10:10:09Z",
+      "toolCalls": []
+    },
+    {
+      "role": "user",
+      "content": "What about a hybrid setup — poly mains and natural gut crosses?",
+      "timestamp": "2026-05-01T10:18:00Z",
+      "toolCalls": []
+    },
+    {
+      "role": "assistant",
+      "content": "Hybrid stringing is very popular, especially among players who want the control of poly with the comfort and power of natural gut. The classic setup is polyester in the mains (vertical strings) and natural gut in the crosses (horizontal strings). The mains contact the ball more, so poly gives you spin and control there. The gut crosses add comfort and power. A common tension recommendation is to string the poly mains at around 48 lbs and the gut crosses 2 lbs higher at 50 lbs, to equalize the tension loss differences between the two materials.",
+      "timestamp": "2026-05-01T10:18:12Z",
+      "toolCalls": []
+    },
+    {
+      "role": "user",
+      "content": "How often should I restring?",
+      "timestamp": "2026-05-01T10:25:00Z",
+      "toolCalls": []
+    },
+    {
+      "role": "assistant",
+      "content": "The classic rule of thumb is to restring as many times per year as you play per week. So if you play 3 times a week, restring 3 times a year. Polyester strings lose tension faster than other materials — they can lose 10-15% of their tension within the first few hours of play. Even if your strings haven't broken, they may have gone dead. If you notice your shots feeling mushy or your control deteriorating, it's time to restring. For casual players on poly, every 3-6 months is reasonable.",
+      "timestamp": "2026-05-01T10:25:07Z",
+      "toolCalls": []
+    }
+  ],
+  "metadata": {
+    "model": "claude-sonnet-4",
+    "tokenCount": 8420,
+    "tags": ["tennis", "strings", "equipment"]
+  }
+}

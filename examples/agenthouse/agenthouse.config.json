@@ -1,0 +1,25 @@
+{
+  "storage": {
+    "blob": {
+      "type": "flatfile",
+      "path": "~/.agenthouse/blobs"
+    },
+    "database": {
+      "type": "sqlite",
+      "path": "~/.agenthouse/warehouse.db"
+    }
+  },
+  "embedder": {
+    "type": "mock",
+    "dimensions": 768
+  },
+  "chunking": {
+    "maxTokensPerChunk": 1000,
+    "overlapTokens": 100
+  },
+  "query": {
+    "defaultLimit": 5,
+    "semanticWeight": 0.7,
+    "fulltextWeight": 0.3
+  }
+}
